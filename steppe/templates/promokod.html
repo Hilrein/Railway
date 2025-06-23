@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Содержимое страницы промокодов -->
+<div class="promo-container">
+    <h1>Промокоды</h1>
+    <p>На этой странице представлен список доступных промокодов.</p>
+    
+    <!-- Здесь будет добавлен список промокодов -->
+    <div class="promo-list">
+        <div class="promo-item">
+            <div class="promo-code">SAPAR2023</div>
+            <div class="promo-discount">Скидка 15%</div>
+            <div class="promo-description">Скидка на все направления</div>
+            <div class="promo-expiry">Срок действия: 31.12.2025</div>
+        </div>
+        
+        <div class="promo-item">
+            <div class="promo-code">ALMATY</div>
+            <div class="promo-discount">Скидка 10%</div>
+            <div class="promo-description">Скидка на направление Алматы</div>
+            <div class="promo-expiry">Срок действия: 30.09.2025</div>
+        </div>
+
+        <div class="promo-item">
+            <div class="promo-code">SUMMER24</div>
+            <div class="promo-discount">Скидка 20%</div>
+            <div class="promo-description">Летняя скидка на все направления</div>
+            <div class="promo-expiry">Срок действия: 31.08.2025</div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="about-page">
+  <div class="about-header">
+    <h1>ZhibekZholy</h1>
+    <p>Покупка билетов на поезд и путешествия по всему Казахстану</p>
+  </div>
+
+  <!-- Раздел о компании -->
+  <section class="about-section">
+    <h2>О компании</h2>
+    <div class="about-content">
+      <div class="about-image">
+        <div class="image-container">
+          <img src="{% static 'img/1 photo.jpg' %}" alt="Компания">
+          <div class="image-overlay"></div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>Компания ZhibekZholy была основана в 2025 году с целью предоставить путешественникам высококачественные и удобные решения путем бронирования железнодорожных билетов. Мы стремимся обеспечить, чтобы каждый клиент мог легко и удобно покупать билеты, а также получать дополнительные услуги, улучшая впечатления от путешествий. Наши билеты можно приобрести онлайн через наш веб-сайт, и они гарантированно безопасны.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Раздел История компании -->
+  <section class="about-section">
+    <h2>Наша миссия</h2>
+    <div class="about-content reverse">
+      <div class="about-text">
+        <p>ZhibekZholy открывает для вас мир комфортных и комфортных путешествий. Забудьте о головной боли длинными очередями и забронируйте билет на поезд одним щелчком мыши. Мы упростили весь процесс, чтобы ваше путешествие было только легким и быстрым.</p>
+        <div class="mission-values">
+          <div class="value-item">
+            <div class="value-icon">💡</div>
+            <div class="value-text">Инновация</div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🤝</div>
+            <div class="value-text">Надежность</div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">⚡</div>
+            <div class="value-text">Скорость</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="image-container">
+          <img src="{% static 'img/3 photo.jpg' %}" alt="История компании">
+          <div class="image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Карусель изображений -->
+  <section class="carousel-section">
+    <h2>Фотогалерея</h2>
+    <div class="carousel-container">
+      <div class="carousel-wrapper">
+        <div class="carousel" id="carousel">
+          <img src="{% static 'img/4 photo.jpg' %}" alt="Картинка 1">
+          <img src="{% static 'img/3 photo.jpg' %}" alt="Карусель 2">
+          <img src="{% static 'img/обслуж.jpg' %}" alt="Карусель 3">
+          <img src="{% static 'img/1 photo.jpg' %}" alt="Картинка 4">
+          <img src="{% static 'img/2 photo.png' %}" alt="Картинка 5">
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-button prev" onclick="prevSlide()">&#10094;</button>
+        <div class="carousel-indicators" id="carousel-indicators"></div>
+        <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Раздел Услуги -->
+  <section class="services-section">
+    <h2>Наши услуги</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">
+          <div class="icon-circle">
+            <img src="{% static 'img/билетбум.jpg' %}" alt="Железнодорожные билеты">
+          </div>
+        </div>
+        <h3>Железнодорожные билеты</h3>
+        <p>Купить билеты на поезд по всему Казахстану легко и быстро через наш сайт</p>
+      </div>
+      
+      <div class="service-item">
+        <div class="service-icon">
+          <div class="icon-circle">
+            <img src="{% static 'img/карта.jpg' %}" alt="Путеводители">
+          </div>
+        </div>
+        <h3>Путь</h3>
+        <p>Получите полезную информацию о маршрутах, расписаниях и местах проживания во время путешествия.</p>
+      </div>
+      
+      <div class="service-item">
+        <div class="service-icon">
+          <div class="icon-circle">
+            <img src="{% static 'img/электронб.jpg' %}" alt="Электронные билеты">
+          </div>
+        </div>
+        <h3>Электронные билеты</h3>
+        <p>Наши электронные билеты гарантируют комфорт и удобство. Вы можете отображать их на своем мобильном устройстве.</p>
+      </div>
+      
+      <div class="service-item">
+        <div class="service-icon">
+          <div class="icon-circle">
+            <img src="{% static 'img/обслуж.jpg' %}" alt="Обслуживание клиентов">
+          </div>
+        </div>
+        <h3>Обслуживание клиентов</h3>
+        <p>Наши специалисты всегда готовы помочь и проконсультировать по любым вопросам, связанным с покупкой билетов.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-section">
+    <div class="cta-content">
+      <h2 style="color: white;">Готовы начать свое путешествие?</h2>
+      <p>Забронируйте билет сразу и отправляйтесь в путь</p>
+      <a href="/" class="cta-button">Поиск билетов</a>
+    </div>
+    <div class="cta-wave"></div>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const carousel = document.getElementById('carousel');
+  const slides = document.querySelectorAll('#carousel img');
+  const totalSlides = slides.length;
+  const indicatorsContainer = document.getElementById('carousel-indicators');
+
+  // Создаем индикаторы
+  for (let i = 0; i < totalSlides; i++) {
+    const indicator = document.createElement('span');
+    indicator.classList.add('carousel-indicator');
+    if (i === 0) indicator.classList.add('active');
+    indicator.addEventListener('click', () => {
+      currentIndex = i;
+      showSlide(currentIndex);
+    });
+    indicatorsContainer.appendChild(indicator);
+  }
+
+  function showSlide(index) {
+    if (index >= totalSlides) currentIndex = 0;
+    if (index < 0) currentIndex = totalSlides - 1;
+    
+    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    // Обновляем активный индикатор
+    document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex++;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex--;
+    showSlide(currentIndex);
+  }
+
+  let slideInterval = setInterval(nextSlide, 3000);
+
+  document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+  });
+
+  document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+    slideInterval = setInterval(nextSlide, 3000);
+  });
+
+  // Инициализация
+  showSlide(currentIndex);
+</script>
+{% endblock content %}

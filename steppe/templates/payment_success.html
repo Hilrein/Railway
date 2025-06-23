@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZhibekZholy - Поиск билета</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+  {% block content %}
+  <main>
+    <center>
+    <h1>Оплата успешно завершена</h1>
+    <p>Ваш билет будет отправлен на указанный адрес электронной почты.</p>
+    <a href="/" class="btn">На главную</a>
+    </center>
+  </main>
+  {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- fa solid -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>ZhibekZholy</title>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+    {% block header %}
+    <header>
+        <a href="/">
+            <img src="https://cdn.discordapp.com/attachments/1364277165746688002/1376216047404974231/img-of-logo-copy.png?ex=68348492&is=68333312&hm=bfdaf7f0c477311c3cbf330528fbc67ea0eedd766c19845c98f4392c9931672d&" alt="logo" class="small-logo">
+        </a>
+        <div class="head">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">Главная</a>
+                    </li>
+                    <li>
+                        <a href="/about"> О компании</a>
+                    </li>
+                    <li>
+                        <a href="/reviews">Отзывы</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <div id="menu-trigger"><span>&#9776;</span></div>
+                        </li>
+                    {% else %}
+                        <li class="registration"><a href="/registration">Регистрация</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    {% endblock header %}
+    <div class="side-menu" id="side-menu">
+        <ul>
+            <li><a href="/myprofile"> Мой профиль</a></li>
+            <li><a href="/bonuses">Бонусы</a></li>
+            <li><a href="/promokod">Промокоды</a></li>
+            <li><a href="/kuzhat">Документы</a></li>
+            <li><a href="/bailanys">Контакты</a></li>
+            <li><a href="/sayahat">Мир путешественников</a></li>
+            <li><a href="{% url 'logout' %}">Выйти</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuTrigger = document.getElementById("menu-trigger");
+            const sideMenu = document.getElementById("side-menu");
+            const overlay = document.getElementById("overlay");
+
+            menuTrigger.addEventListener("click", function (e) {
+                e.preventDefault(); 
+                sideMenu.classList.toggle("active");
+                if (sideMenu.classList.contains("active")) {
+                    overlay.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                } else {
+                    overlay.classList.remove("active");
+                    document.body.style.overflow = "";
+                }
+            });
+
+            function closeMenuFunc() {
+                sideMenu.classList.remove("active");
+                overlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+            overlay.addEventListener("click", closeMenuFunc);
+
+            sideMenu.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", closeMenuFunc);
+            });
+            
+            sideMenu.addEventListener("mouseenter", function() {
+                overlay.classList.add("active");
+            });
+            
+            sideMenu.addEventListener("mouseleave", function() {
+                if (!sideMenu.classList.contains("active")) {
+                    overlay.classList.remove("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+ 
+<style>
+  .search-header h2 {
+    font-family: 'Arial Black', Arial, sans-serif; /* Например, жирный шрифт Arial Black */
+    color:rgb(18, 37, 57); /* Ярко-оранжевый цвет — можно поменять на любой */
+  }
+</style>

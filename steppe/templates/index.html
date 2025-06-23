@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="hero-section animated fadeIn">
+    <h1>ZhibekZholy-ваше путешествие в наших руках!</h1>
+    <p class="hero-description">Покупайте билеты в любой город Казахстана быстро и удобно</p>
+  </div>
+
+  <!-- Улучшенный блок поиска билетов -->
+  <div class="search-container animated fadeInUp">
+    <form method="POST" action="{% url 'find_trains' %}" class="modern-search-form">
+      {% csrf_token %}
+      <section id="search" class="search-card">
+        <div class="search-header">
+          <h2>Поиск билетов</h2>
+          <p class="search-subtitle">Выберите направление, дату и ищите билеты</p>
+        </div>
+        
+        <div class="search-body">
+          <div class="direction-container">
+            <div class="direction-field">
+              <label class="search-label" for="from_city">
+                <span class="icon-wrapper">
+                  <span class="departure-icon"></span>
+                </span>
+                <span>Откуда:</span>
+              </label>
+              <select class="search-select" id="from_city" name="from_city" required>
+                <option value="" selected disabled hidden>Выберите город</option>
+                {% for from_city in from_city %}
+                  <option value="{{ from_city.city }}">{{ from_city.city }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="direction-switcher" id="directionSwitcher">
+              <button type="button" class="switch-button" aria-label="Бағыттарды ауыстыру">
+                <span class="switch-icon">⇄</span>
+              </button>
+            </div>
+            
+            <div class="direction-field">
+              <label class="search-label" for="to_city">
+                <span class="icon-wrapper">
+                  <span class="arrival-icon"></span>
+                </span>
+                <span>Куда:</span>
+              </label>
+              <select class="search-select" id="to_city" name="to_city" required>
+                <option value="" selected disabled hidden>Выберите город</option>
+                {% for to_city in to_city %}
+                  <option value="{{ to_city.city }}">{{ to_city.city }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          
+          <div class="date-container">
+            <label class="search-label" for="date">
+              <span class="icon-wrapper">
+                <span class="calendar-icon"></span>
+              </span>
+              <span>Дата поездки:</span>
+            </label>
+            <input type="date" id="date" name="date" class="search-input" required>
+            <div class="date-hint">
+              <span id="selectedDateText">Выберите дату</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="search-footer">
+          <button type="submit" class="search-button pulse-animation">
+            <span class="search-icon"></span>
+            <span>Поиск билетов</span>
+          </button>
+          <div class="search-tips">
+            <div class="tip-text">
+              <span class="tip-icon">💡</span>
+              <span>Совет: бронируйте билеты заранее</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+
+  <div class="popular-routes">
+    <h3>Популярные направления</h3>
+    <div class="route-list">
+      <div class="route-card">
+        <div class="route-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 15V18C4 18.5523 4.44772 19 5 19H19C19.5523 19 20 18.5523 20 18V15" stroke="#007bff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="9" width="12" height="6" rx="1" stroke="#007bff" stroke-width="2"/>
+            <path d="M8 9V6C8 4.89543 8.89543 4 10 4H14C15.1046 4 16 4.89543 16 6V9" stroke="#007bff" stroke-width="2"/>
+            <circle cx="9" cy="15" r="1" fill="#007bff"/>
+            <circle cx="15" cy="15" r="1" fill="#007bff"/>
+          </svg>
+        </div>
+        <div class="route-cities">
+          <div class="route-info">
+            <span>Астана</span>
+            <span class="route-arrow">→</span>
+            <span>Алматы</span>
+          </div>
+        </div>
+        <div class="route-details">
+          <div class="route-time"><i class="time-icon"></i>15 часов</div>
+          <div class="route-distance"><i class="distance-icon"></i>1300 км</div>
+        </div>
+        <div class="route-price">12,000 ₸</div>
+        <a href="#" class="route-button">Выбрать</a>
+      </div>
+
+      <div class="route-card">
+        <div class="route-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 15V18C4 18.5523 4.44772 19 5 19H19C19.5523 19 20 18.5523 20 18V15" stroke="#007bff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="9" width="12" height="6" rx="1" stroke="#007bff" stroke-width="2"/>
+            <path d="M8 9V6C8 4.89543 8.89543 4 10 4H14C15.1046 4 16 4.89543 16 6V9" stroke="#007bff" stroke-width="2"/>
+            <circle cx="9" cy="15" r="1" fill="#007bff"/>
+            <circle cx="15" cy="15" r="1" fill="#007bff"/>
+          </svg>
+        </div>
+        <div class="route-cities">
+          <div class="route-info">
+            <span>Караганда</span>
+            <span class="route-arrow">→</span>
+            <span>Астана</span>
+          </div>
+        </div>
+        <div class="route-details">
+          <div class="route-time"><i class="time-icon"></i> 4 часа</div>
+          <div class="route-distance"><i class="distance-icon"></i>220 км</div>
+        </div>
+        <div class="route-price">8,500 ₸</div>
+        <a href="#" class="route-button">Выбрать</a>
+      </div>
+
+      <div class="route-card">
+        <div class="route-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 15V18C4 18.5523 4.44772 19 5 19H19C19.5523 19 20 18.5523 20 18V15" stroke="#007bff" stroke-width="2" stroke-linecap="round"/>
+            <rect x="6" y="9" width="12" height="6" rx="1" stroke="#007bff" stroke-width="2"/>
+            <path d="M8 9V6C8 4.89543 8.89543 4 10 4H14C15.1046 4 16 4.89543 16 6V9" stroke="#007bff" stroke-width="2"/>
+            <circle cx="9" cy="15" r="1" fill="#007bff"/>
+            <circle cx="15" cy="15" r="1" fill="#007bff"/>
+          </svg>
+        </div>
+        <div class="route-cities">
+          <div class="route-info">
+            <span>Алматы</span>
+            <span class="route-arrow">→</span>
+            <span>Шымкент</span>
+          </div>
+        </div>
+        <div class="route-details">
+          <div class="route-time"><i class="time-icon"></i>10 часов</div>
+          <div class="route-distance"><i class="distance-icon"></i>700 км</div>
+        </div>
+        <div class="route-price">10,500 ₸</div>
+        <a href="#" class="route-button">Выбрать</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="benefits-section">
+    <h3>Наши преимущества</h3>
+    <div class="benefits-container">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="benefit-icon-fast"></i>
+        </div>
+        <h4>Быстрое бронирование</h4>
+        <p>Выберите и купите билет за несколько минут</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="benefit-icon-price"></i>
+        </div>
+        <h4>Выгодные цены</h4>
+        <p>Мы всегда предлагаем лучшие цены</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="benefit-icon-support"></i>
+        </div>
+        <h4>Поддержка 24/7</h4>
+        <p>Наша служба поддержки всегда готова помочь</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Анимация появления элементов
+    function animateElements() {
+      const elements = document.querySelectorAll('.animated');
+      elements.forEach((element, index) => {
+        setTimeout(() => {
+          element.classList.add('visible');
+        }, 200 * index);
+      });
+    }
+    
+    animateElements();
+    
+    // Функционал переключения направлений
+    const directionSwitcher = document.getElementById('directionSwitcher');
+    if (directionSwitcher) {
+      directionSwitcher.addEventListener('click', function() {
+        const fromCity = document.getElementById('from_city');
+        const toCity = document.getElementById('to_city');
+        
+        // Сохраняем текущие значения
+        const fromValue = fromCity.value;
+        const toValue = toCity.value;
+        
+        // Меняем значения местами
+        fromCity.value = toValue;
+        toCity.value = fromValue;
+        
+        // Анимация для кнопки
+        this.classList.add('rotate');
+        setTimeout(() => {
+          this.classList.remove('rotate');
+        }, 500);
+      });
+    }
+    
+    // Отображение выбранной даты в понятном формате
+    const dateInput = document.getElementById('date');
+    const selectedDateText = document.getElementById('selectedDateText');
+    
+    if (dateInput && selectedDateText) {
+      // Устанавливаем минимальную дату - сегодня
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      dateInput.min = `${yyyy}-${mm}-${dd}`;
+      
+      // Обновляем текст при изменении даты
+      dateInput.addEventListener('change', function() {
+        if (this.value) {
+          const dateParts = this.value.split('-');
+          const year = dateParts[0];
+          const month = dateParts[1];
+          const day = dateParts[2];
+          
+          // Названия месяцев на казахском
+const monthNames = [
+  'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+  'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
+];
+          const monthName = monthNames[parseInt(month) - 1];
+          selectedDateText.textContent = `${day} ${monthName}, ${year} г.`;
+          
+          // Добавляем класс для стилизации
+          selectedDateText.classList.add('date-selected');
+        } else {
+          selectedDateText.textContent = 'Выберите день';
+          selectedDateText.classList.remove('date-selected');
+        }
+      });
+    }
+    
+    // Анимация кнопки
+    const searchButton = document.querySelector('.search-button');
+    if (searchButton) {
+      searchButton.addEventListener('mouseover', function() {
+        this.classList.add('pulse');
+      });
+      
+      searchButton.addEventListener('mouseout', function() {
+        this.classList.remove('pulse');
+      });
+    }
+  });
+</script>
+{% endblock content %}
+
+<style>
+  .search-header h2 {
+    font-family: 'Arial Black', Arial, sans-serif; /* Например, жирный шрифт Arial Black */
+    color:rgb(18, 37, 57); /* Ярко-оранжевый цвет — можно поменять на любой */
+  }
+</style>

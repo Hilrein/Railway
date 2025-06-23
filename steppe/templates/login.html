@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZhibekZholy - Поиск билета</title>
+  <link rel="stylesheet" href="{% static "css/style.css" %}" />
+</head>
+<body>
+  {% block content %}
+  <div class="auth-page">
+    <div class="auth-container">
+      <div class="auth-header">
+        <h1>Вход</h1>
+        <p>Войдите в свой аккаунт ZhibekZholy</p>
+      </div>
+      
+      <form method="POST" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="username">Имя пользователя</label>
+          <input type="text" name="username" id="username" placeholder="Введите имя пользователя" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" name="password" id="password" placeholder="Введите пароль" required>
+        </div>
+        
+        {% if form.errors %}
+          <div class="error-container">
+            {% for field, error_list in form.errors.items %}
+              {% for error in error_list %}
+                <div class="error-message">{{ error }}</div>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        <div class="form-checkbox">
+          <input type="checkbox" name="remember_me" id="remember_me">
+          <label for="remember_me">Запомнить меня</label>
+        </div>
+        
+        <button type="submit" class="auth-button">Войти</button>
+      </form>
+      
+      <div class="auth-footer">
+        <p>Нет аккаунта? <a href="/registration">Зарегистрироваться</a></p>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contact-container">
+    <h1 class="contact-title">Контакты</h1>
+    
+    <div class="contact-info">
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-solid fa-phone" alt="Телефон"></i>
+            </div>
+            <div class="contact-details">
+                <h3>Телефон</h3>
+                <p>+7 (747) 777-77-77</p>
+            </div>
+        </div>
+        
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-solid fa-envelope" alt="Email"></i>
+            </div>
+            <div class="contact-details">
+                <h3>Email</h3>
+                <p>support@sapartime.kz</p>
+            </div>
+        </div>
+        
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-solid fa-map-location" alt="Мекенжай"></i>
+            </div>
+            <div class="contact-details">
+                <h3>Адрес</h3>
+                <p>ҚКазахстан, г. Астана</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="contact-form">
+        <h2>Свяжитесь с нами</h2>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">ФИО</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Сообщение</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Отправить</button>
+        </form>
+    </div>
+    
+
+
+    <!-- карта --><!-- карта --><!-- карта --><!-- карта --><!-- карта --><!-- карта --><!-- карта --><!-- карта --><!-- карта -->
+    <div class="map-container">
+        <h2>Наше местоположение</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2505.9636054244597!2d71.41559597727733!3d51.090679171721526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585a605525605%3A0x4dff4a1973f7567e!2sAstana%20IT%20University!5e0!3m2!1sru!2skz!4v1748112607778!5m2!1sru!2skz" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fa-solid { 
+        font-size: 35px;
+    }
+
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .contact-title {
+        text-align: center;
+        color:rgb(39, 47, 58);
+        margin-bottom: 40px;
+        font-size: 36px;
+    }
+    
+    .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 50px;
+    }
+    
+    .contact-item {
+        flex-basis: 30%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .contact-icon {
+        margin-right: 15px;
+    }
+    
+    .contact-icon img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .contact-details h3 {
+        margin: 0 0 5px;
+        color: #333;
+    }
+    
+    .contact-details p {
+        margin: 0;
+        color: #666;
+    }
+    
+    .contact-form {
+        background: #f8f9fa;
+        padding: 20px;
+        padding-inline: 300px;
+        border-radius: 10px;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        margin-bottom: 50px;
+    }
+    
+    .contact-form h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: rgb(39, 47, 58);;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+        
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
+    .submit-btn {
+        background: rgb(39, 47, 58);;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    .submit-btn:hover {
+        background: rgb(39, 47, 58);;
+    }
+    
+    .map-container {
+        margin-top: 50px;
+    }
+    
+    .map-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: rgb(39, 47, 58);;
+    }
+    
+    .map {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .contact-info {
+            flex-direction: column;
+        }
+        
+        .contact-item {
+            flex-basis: 100%;
+        }
+    }
+</style>
+{% endblock content %}

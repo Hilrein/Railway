@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Информация о билете</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    {% block content %}
+    <div style="text-align: center;">
+        <h1>Информация о билете</h1>
+        <div class="ticket-details">
+            {% if train %}
+                <h2>Поезд №{{ train.number }}</h2>
+                <p><strong>Маршрут:</strong> {{ train.route }}</p>
+                <p><strong>Станции:</strong> {{ stations }}</p>
+                <p><strong>Уровень обслуживания:</strong> {{ train.service_level }}</p>
+
+                <h3>Информация о выбранном вагоне:</h3>
+                <p><strong>Вагон №:</strong> {{ wagon.id }}</p>
+                <p><strong>Тип вагона:</strong> {{ wagon.wagon_type }}</p>
+                <p><strong>Количество мест:</strong> {{ wagon.seats }}</p>
+                <p><strong>Цена билета:</strong> {{ wagon.ticket_price }}₸</p>
+
+                <h3>Доступные места для бронирования:</h3>
+                <form action="{% url 'payment_test' %}" method="post">
+                    {% csrf_token %}
+                    <select class="text-field__input" id="seat" name="seat" required>
+                        <option value="" selected disabled hidden>Выберите место</option>
+                        {% for seat in seats %}
+                            {% if forloop.counter not in tickets %}
+                                {% if seat|divisibleby:2 %}
+                                    <option value="{{ seat }}">{{ seat }} (Верхнее)</option>
+                                {% else %}
+                                    <option value="{{ seat }}">{{ seat }} (Нижнее)</option>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <input type="hidden" name="train_id" value="{{ train.number }}" />
+                    <input type="hidden" name="wagon_id" value="{{ wagon.id }}" />
+                    <input type="hidden" name="wagon_type" value="{{ wagon.wagon_type }}" />
+                    <input type="hidden" name="ticket_price" value="{{ wagon.ticket_price }}" />
+
+                    <br><br>
+                    <button type="submit" class="custom-btn btn-3">
+                        <span>Выбрать место</span>
+                    </button>
+                </form>
+                <br><br>
+            {% else %}
+                <p>Информация о поезде отсутствует.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

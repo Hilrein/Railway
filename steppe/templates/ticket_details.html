@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Информация о билете</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    {% block content %}
+    <div style="text-align: center;">
+        <h1>Информация о билете</h1>
+        <div class="ticket-details">
+            {% if train %}
+                <h2>Поезд №{{ train.number }}</h2>
+                <p><strong>Маршрут:</strong> {{ train.route }}</p>
+                <p><strong>Станции:</strong> {{ stations }}</p>
+                <p><strong>Уровень обслуживания:</strong> {{ train.service_level }}</p>
+
+                <h3>Информация о вагонах:</h3>
+                {% for wagon in wagon_info %}
+                    <p><strong>Вагон №:</strong> {{ wagon.id }}</p>
+                    <p><strong>Тип вагона:</strong> {{ wagon.type }}</p>
+                    <p><strong>Количество мест:</strong> {{ wagon.seats }}</p>
+                    <p><strong>Цена билета:</strong> {{ wagon.ticket_price }}₸</p>
+                    <br>
+                {% endfor %}
+
+                <form action="{% url 'select_wagon' %}" method="post">
+                    {% csrf_token %}
+                    <label for="wagon" style="font-weight: bold;">Выберите вагон:</label><br>
+                    <select class="text-field__input" id="wagon" name="wagon" required>
+                        <option value="" selected disabled hidden>Выберите вагон</option>
+                        {% for wagon in wagon_info %}
+                            <option value="{{ wagon.id }}">Вагон №{{ wagon.id }} — {{ wagon.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
+                    <button type="submit" class="custom-btn btn-3">
+                        <span>Выбрать место</span>
+                    </button>
+                </form>
+                <br><br>
+            {% else %}
+                <p>Информация о поезде отсутствует.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

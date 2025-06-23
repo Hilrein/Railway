@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZhibekZholy - Поиск билетов</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <style>
+    body {
+      background-color: #1e1e2f; /* тёмно-синий фон */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white; /* белый шрифт для всего тела */
+    }
+    .auth-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .auth-container {
+      background: #2c2f48; /* чуть светлее фон для контейнера */
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      max-width: 400px;
+      width: 100%;
+    }
+    .auth-header h1 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 2rem;
+      color: white;
+    }
+    .auth-header p {
+      color: #a0a6c1;
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    .auth-form .form-group {
+      margin-bottom: 20px;
+    }
+    .auth-form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: white;
+    }
+    .auth-form input[type="text"],
+    .auth-form input[type="email"],
+    .auth-form input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1.5px solid #565a7b;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #3b3f65;
+      color: white;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+    .auth-form input[type="text"]::placeholder,
+    .auth-form input[type="email"]::placeholder,
+    .auth-form input[type="password"]::placeholder {
+      color: #b0b4d1;
+    }
+    .auth-form input[type="text"]:focus,
+    .auth-form input[type="email"]:focus,
+    .auth-form input[type="password"]:focus {
+      border-color: #a9a9f5;
+      background-color: #4a4f82;
+      outline: none;
+    }
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .form-checkbox input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      accent-color: #a9a9f5;
+      cursor: pointer;
+    }
+    .form-checkbox label {
+      font-size: 0.9rem;
+      color: white;
+      cursor: pointer;
+    }
+    .auth-button {
+      width: 100%;
+      background-color: #a9a9f5;
+      color: #1e1e2f;
+      padding: 14px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .auth-button:hover {
+      background-color: #8a8adc;
+    }
+    .auth-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0a6c1;
+    }
+    .auth-footer a {
+      color: #a9a9f5;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .auth-footer a:hover {
+      color: #8a8adc;
+    }
+  </style>
+</head>
+<body>
+  {% block content %}
+  <div class="auth-page">
+    <div class="auth-container">
+      <header class="auth-header">
+        <h1>Регистрация</h1>
+        <p>Добро пожаловать в сервис ZhibekZholy</p>
+      </header>
+      
+      <form method="post" class="auth-form" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="first_name">ФИО</label>
+          <input type="text" name="first_name" id="first_name" placeholder="Введите ваше имя" required />
+          {% if form.first_name.errors %}
+            <div class="error-message">{{ form.first_name.errors }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="username">Имя пользователя</label>
+          <input type="text" name="username" id="username" placeholder="Введите имя пользователя" required />
+          {% if form.username.errors %}
+            <div class="error-message">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Электронная почта</label>
+          <input type="email" name="email" id="email" placeholder="Введите вашу почту" required />
+          {% if form.email.errors %}
+            <div class="error-message">{{ form.email.errors }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="password1">Пароль</label>
+          <input type="password" name="password1" id="password1" placeholder="Введите пароль" required />
+          {% if form.password1.errors %}
+            <div class="error-message">{{ form.password1.errors }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group">
+          <label for="password2">Повторите пароль</label>
+          <input type="password" name="password2" id="password2" placeholder="Повторите пароль" required />
+          {% if form.password2.errors %}
+            <div class="error-message">{{ form.password2.errors }}</div>
+          {% endif %}
+        </div>
+        
+        <div class="form-checkbox">
+          <input type="checkbox" name="save_password" id="save_password" />
+          <label for="save_password">Сохранить пароль</label>
+        </div>
+        
+        <button type="submit" class="auth-button">Зарегистрироваться</button>
+      </form>
+      
+      <footer class="auth-footer">
+        <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
+      </footer>
+    </div>
+  </div>
+  {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,414 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bonuses-container">
+    <h1 class="bonuses-title">Бонусы</h1>
+    
+    <div class="bonuses-info">
+        <p>Специальные бонусы и предложения для пользователей ZhibekZholy. Путешествуйте чаще и получайте привилегии!</p>
+    </div>
+    
+    <div class="bonuses-balance">
+        <div class="balance-card">
+            <div class="balance-header">
+                <h2>Ваши бонусы</h2>
+            </div>
+            <div class="balance-amount">
+                <span class="amount">{{ user.balance|default:"0" }}</span>
+                <span class="currency">бонусов</span>
+            </div>
+            <div class="balance-info">
+                <p>1 бонус = 1 тенге скидки</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bonuses-program">
+        <h2>Бонусная программа</h2>
+        
+        <div class="program-cards">
+            <div class="program-card">
+                <div class="program-icon">
+                    <i class="fa-solid fa-ticket"></i>
+                </div>
+                <div class="program-info">
+                    <h3>За покупку билета</h3>
+                    <p>Вы получаете 5% от суммы каждого купленного билета в виде бонусов.</p>
+                </div>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <div class="program-info">
+                    <h3>За приглашение друзей</h3>
+                    <p>За каждого приглашённого друга вы получаете 500 бонусов.</p>
+                </div>
+            </div>
+            
+            <div class="program-card">
+                <div class="program-icon">
+                    <i class="fa-solid fa-comment"></i>
+                </div>
+                <div class="program-info">
+                    <h3>За оставленный отзыв</h3>
+                    <p>Оставьте отзыв о поездке и получите 200 бонусов.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="how-to-use">
+        <h2>Как использовать бонусы?</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Выберите билет</h3>
+                    <p>Выберите нужное направление и дату</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>На странице оплаты</h3>
+                    <p>Выберите опцию "Использовать бонусы"</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Укажите, сколько бонусов хотите использовать</h3>
+                    <p>Можно оплатить полностью или частично бонусами</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Получите билет со скидкой</h3>
+                    <p>Бонусы будут применены автоматически</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="invite-friends">
+        <h2>Пригласите друзей</h2>
+        
+        <div class="invite-card">
+            <div class="invite-content">
+                <p>Получите персональную ссылку и поделитесь ею с друзьями. Когда они зарегистрируются и купят первый билет, вы получите бонусы!</p>
+                
+                <div class="invite-link">
+                    <input type="text" value="https://sapartime.kz/ref/{{ user.referral_code|default:'12345' }}" readonly>
+                    <button class="copy-btn">Скопировать</button>
+                </div>
+                
+                <div class="social-share">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="fa-brands fa-telegram"></i>
+                    <i class="fa fa-envelope"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fa-brands {
+        font-size: 35px;
+    }
+
+    .fa-brands.fa-whatsapp {
+        color: #25D366;
+    }
+
+    .fa-brands.fa-telegram {
+        color:rgb(39, 47, 58);
+    }
+
+    .fa-envelope {
+        font-size: 35px;
+        color: #333;
+    }
+
+    .fa-solid {
+        font-size: 35px;
+        color:rgb(39, 47, 58);
+    }
+
+    .bonuses-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .bonuses-title {
+        text-align: center;
+        color:rgb(39, 47, 58);
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    
+    .bonuses-info {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        font-size: 18px;
+        color: #555;
+    }
+    
+    .bonuses-balance {
+        margin-bottom: 50px;
+    }
+    
+    .balance-card {
+        background: linear-gradient(135deg,rgb(8, 32, 58),rgb(45, 62, 80));
+        border-radius: 15px;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .balance-header h2 {
+        color: #fff;
+        margin-top: 0;
+        font-size: 24px;
+        font-weight: 500;
+    }
+    
+    .balance-amount {
+        margin: 20px 0;
+    }
+    
+    .amount {
+        font-size: 48px;
+        font-weight: 700;
+    }
+    
+    .currency {
+        font-size: 24px;
+        margin-left: 5px;
+    }
+    
+    .balance-info p {
+        margin: 0;
+        font-size: 16px;
+        opacity: 0.9;
+    }
+    
+    .bonuses-program {
+        margin-bottom: 50px;
+    }
+    
+    .bonuses-program h2, .how-to-use h2, .invite-friends h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    
+    .program-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    
+    .program-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        display: flex;
+        align-items: center;
+    }
+    
+    .program-icon {
+        margin-right: 20px;
+    }
+    
+    .program-icon img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .program-info h3 {
+        margin-top: 0;
+        color:rgb(10, 35, 61);
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .program-info p {
+        margin: 0;
+        color: #666;
+    }
+    
+    .how-to-use {
+        margin-bottom: 50px;
+    }
+    
+    .steps {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .step {
+        display: flex;
+        margin-bottom: 25px;
+        align-items: flex-start;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        background:rgb(15, 37, 61);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .step-content p {
+        margin: 0;
+        color: #666;
+    }
+    
+    .invite-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .invite-content {
+        text-align: center;
+    }
+    
+    .invite-content p {
+        margin-bottom: 25px;
+        color: #555;
+        font-size: 16px;
+    }
+    
+    .invite-link {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto 25px;
+    }
+    
+    .invite-link input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px 0 0 5px;
+        font-size: 14px;
+    }
+    
+    .copy-btn {
+        background:rgb(17, 41, 67);
+        color: white;
+        border: none;
+        padding: 0 20px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    
+    .social-share {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .social-btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .whatsapp {
+        background: #25D366;
+    }
+    
+    .telegram {
+        background: #0088cc;
+    }
+    
+    .email {
+        background: #dd4b39;
+    }
+    
+    @media (max-width: 768px) {
+        .program-cards {
+            grid-template-columns: 1fr;
+        }
+        
+        .invite-link {
+            flex-direction: column;
+        }
+        
+        .invite-link input {
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .copy-btn {
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .social-share {
+            flex-direction: column;
+        }
+        
+        .social-btn {
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyBtn = document.querySelector('.copy-btn');
+        const inviteLink = document.querySelector('.invite-link input');
+        
+        if (copyBtn && inviteLink) {
+            copyBtn.addEventListener('click', function() {
+                inviteLink.select();
+                document.execCommand('copy');
+                copyBtn.textContent = 'Көшірілді!';
+                
+                setTimeout(function() {
+                    copyBtn.textContent = 'Көшіру';
+                }, 2000);
+            });
+        }
+    });
+</script>
+{% endblock content %}

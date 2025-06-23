@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="reviews-page">
+    <div class="reviews-header">
+        <h1>Отзывы наших клиентов</h1>
+        <p>Подлинные отзывы клиентов о наших услугах</p>
+    </div>
+
+    <div class="reviews-stats">
+        <div class="stat-item">
+            <div class="stat-number">{{ reviews|length }}</div>
+            <div class="stat-label">Всего отзывов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">
+                {% if reviews %}
+                    {% with avg_rating=reviews|length %}
+                        {% if avg_rating > 0 %}5.0{% else %}0{% endif %}
+                    {% endwith %}
+                {% else %}
+                    0
+                {% endif %}
+            </div>
+            <div class="stat-label">Средний рейтинг</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Положительные отзывы</div>
+        </div>
+    </div>
+
+    <div class="reviews-container">
+        {% if reviews %}
+            <div class="reviews-list">
+                {% for res in reviews %}
+                <div class="review-card">
+                    <div class="review-badge">Проверено</div>
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">
+                                <i class="user-icon"></i>
+                            </div>
+                            <div class="author-info">
+                                <div class="author-name">{{ res.author }}</div>
+                                <div class="review-date">{% now "d.m.Y" %}</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= res.rating %}
+                                    <span class="star filled">★</span>
+                                {% else %}
+                                    <span class="star">☆</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p>{{ res.text }}</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn" type="button">
+                                <i class="helpful-icon"></i>
+                                <span>Полезно</span>
+                            </button>
+                        </div>
+                        {% if res.author == request.user.username %}
+                        <div class="review-actions">
+                            <a href="{% url 'delete' res.rid %}" class="delete-review">
+                                <i class="delete-icon"></i>
+                                <span>Удалить</span>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-reviews">
+                <div class="no-reviews-icon"></div>
+                <h2>Отзывы не найдены</h2>
+                <p>Вы можете оставить первый отзыв!</p>
+            </div>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+        <div class="add-review-section">
+            <h2>Оставить отзыв</h2>
+            <form method="POST" action="{% url 'create' %}" class="review-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="rating">
+                        <i class="rating-icon"></i>
+                        Ваша оценка:
+                    </label>
+                    <div class="rating-select">
+                        <select id="rating" name="rating" required>
+                            <option value="" selected disabled hidden>Выберите</option>
+                            <option value="1">1 - Очень плохо</option>
+                            <option value="2">2 - Плохо</option>
+                            <option value="3">3 - Средне</option>
+                            <option value="4">4 - Хорошо</option>
+                            <option value="5">5 - Отлично</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="review">
+                        <i class="comment-icon"></i>
+                        Ваш отзыв:
+                    </label>
+                    <textarea id="review" name="review" rows="5" placeholder="Введите ваш отзыв..." required></textarea>
+                </div>
+                <button type="submit" class="submit-review">
+                    <i class="send-icon"></i>
+                    <span>Отправить</span>
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <div class="login-to-review">
+            <div class="login-icon"></div>
+            <h3>Авторизуйтесь, чтобы оставить отзыв</h3>
+            <p>Ваше мнение важно для нас</p>
+            <a href="/registration" class="login-button">Регистрация</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация появления карточек отзывов
+        const reviewCards = document.querySelectorAll('.review-card');
+        reviewCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('fade-in');
+            }, 100 * index);
+        });
+
+        // Обработчик кнопки "Полезно"
+        const helpfulBtns = document.querySelectorAll('.helpful-btn');
+        helpfulBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                if (this.classList.contains('active')) {
+                    this.querySelector('span').textContent = 'Полезно · 1';
+                } else {
+                    this.querySelector('span').textContent = 'Полезно';
+                }
+            });
+        });
+    });
+</script>
+{% endblock content %}
