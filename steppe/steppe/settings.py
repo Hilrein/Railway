@@ -1,11 +1,13 @@
 
 from pathlib import Path
 import os
-BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-4rbv43o=0tj8q)_n0$@!5j%m1i@-8)@$f_h68rray+g2vu3_nm'
-DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'wh029ek8lu.onrender.com', '.onrender.com']
+BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-4rbv43o=0tj8q)_n0$@!5j%m1i@-8)@$f_h68rray+g2vu3_nm')
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'    
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', 'wh029ek8lu.onrender.com', '.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app', 'https://*.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,20 +21,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-
-
-
-
-
-
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'steppe.urls'
@@ -59,23 +54,18 @@ WSGI_APPLICATION = 'steppe.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'steppe',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
     }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR.parent / 'db.sqlite3',
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR.parent / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -113,13 +103,6 @@ STATIC_URL = '/static/'
 # для рендера на render
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
-
-
-
 
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
